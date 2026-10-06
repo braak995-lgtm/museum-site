@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المتحف المصري بالقاهرة | Egyptian Museum Cairo</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            DEFAULT: '#C5A059',
+                            light: '#D4B87B',
+                            dark: '#A37F3A',
+                            accent: '#E6C885'
+                        },
+                        egyptDark: '#0B0B0C',
+                        egyptCardDark: '#141416',
+                        egyptLight: '#F7F6F2',
+                        egyptCardLight: '#EFECE6'
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        tajawal: ['Tajawal', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Tajawal', 'Cairo', sans-serif;
+            background-color: #0B0B0C;
+            color: #F7F6F2;
+            overflow-x: hidden;
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #E6C885 0%, #C5A059 50%, #94722E 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #141416;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #C5A059;
+            border-radius: 3px;
+        }
+
+        .hero-overlay {
+            background: radial-gradient(circle at 30% 50%, rgba(11, 11, 12, 0.3) 0%, rgba(11, 11, 12, 0.85) 75%, rgba(11, 11, 12, 1) 100%);
+        }
+
+        .hieroglyph-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%3CC5A059' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .card-hover-zoom img {
+            transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .card-hover-zoom:hover img {
+            transform: scale(1.08);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-gold selection:text-black custom-scrollbar">
+
+    <!-- Header Navigation -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-egyptDark/90 backdrop-blur-md border-b border-gold/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 space-x-reverse">
+                    <a href="#" class="flex items-center gap-3 group">
+                        <div class="w-11 h-11 border border-gold/50 rounded-full flex items-center justify-center p-1 group-hover:border-gold transition-colors duration-300">
+                            <svg class="w-7 h-7 text-gold" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2L15 8L21 9L16.5 14L18 20L12 17L6 20L7.5 14L3 9L9 8L12 2Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-lg font-bold tracking-wide text-egyptLight group-hover:text-gold transition-colors">المتحف المصري</span>
+                            <span class="text-[10px] text-gold/80 -mt-1 tracking-widest font-light">بالقاهرة</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-8 space-x-reverse text-sm font-medium">
+                    <a href="#hero" class="text-gold border-b-2 border-gold pb-1 transition-all">الرئيسية</a>
+                    <a href="#collections" class="text-gray-300 hover:text-gold transition-colors pb-1">المقتنيات</a>
+                    <a href="#about" class="text-gray-300 hover:text-gold transition-colors pb-1">عن المتحف</a>
+                    <a href="#visitors" class="text-gray-300 hover:text-gold transition-colors pb-1">الزوار</a>
+                </nav>
+
+                <!-- Tools & Call to Action -->
+                <div class="hidden lg:flex items-center space-x-6 space-x-reverse">
+                    <button id="searchBtn" class="text-gray-300 hover:text-gold transition-colors p-2" aria-label="بحث">
+                        <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                    </button>
+                    <button class="text-sm text-gray-300 hover:text-gold font-bold px-2 py-1 rounded transition-colors">
+                        EN
+                    </button>
+                    <button onclick="openModal('tickets')" class="bg-gold hover:bg-gold-light text-egyptDark font-bold px-5 py-2.5 rounded-sm transition-all duration-300 shadow-lg shadow-gold/10 hover:shadow-gold/30 text-sm">
+                        احجز تذكرتك
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center space-x-4 space-x-reverse">
+                    <button onclick="openModal('tickets')" class="bg-gold text-egyptDark font-bold px-3 py-1.5 rounded text-xs">
+                        حجز تذاكر
+                    </button>
+                    <button id="mobileMenuBtn" class="text-gray-300 hover:text-gold focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-egyptDark/98 border-b border-gold/20 px-4 pt-2 pb-6 space-y-3">
+            <a href="#hero" class="block text-gold font-medium py-2">الرئيسية</a>
+            <a href="#collections" class="block text-gray-300 hover:text-gold py-2">المقتنيات</a>
+            <a href="#about" class="block text-gray-300 hover:text-gold py-2">عن المتحف</a>
+            <a href="#visitors" class="block text-gray-300 hover:text-gold py-2">الزوار</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-screen flex items-center pt-20 overflow-hidden hieroglyph-pattern">
+        <!-- Hero Background Image (Egyptian Antiquities Background) -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=2000&q=80" 
+                 alt="المتحف المصري الآثار القديمة" 
+                 class="w-full h-full object-cover object-center opacity-25 filter brightness-90 scale-105 transition-transform duration-10000 ease-out"
+                 id="heroBgImage">
+            <div class="absolute inset-0 hero-overlay"></div>
+        </div>
+
+        <!-- Hero Content Container -->
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-16 md:py-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Right Side Text Column -->
+                <div class="lg:col-span-7 space-y-6 text-right">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gold/30 bg-gold/5 text-gold text-xs sm:text-sm font-medium tracking-wide">
+                        <span class="w-1.5 h-1.5 rounded-full bg-gold animate-pulse"></span>
+                        رحلة عبر التاريخ الفرعوني
+                    </div>
+
+                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-egyptLight leading-tight tracking-tight">
+                        المتحف المصري <br/>
+                        <span class="gold-gradient-text">بالقاهرة</span>
+                    </h1>
+
+                    <p class="text-base sm:text-lg lg:text-xl text-gray-300 font-light max-w-2xl leading-relaxed">
+                        استكشف أعظم المقتنيات والكنوز الأثرية الفرعونية التي تحكي تاريخ آلاف السنين من مهد الحضارة البشرية.
+                    </p>
+
+                    <div class="pt-4 flex flex-wrap gap-4 items-center">
+                        <a href="#collections" class="inline-flex items-center justify-center gap-3 bg-gold hover:bg-gold-light text-egyptDark font-bold px-8 py-4 rounded-sm transition-all duration-300 shadow-xl shadow-gold/20 hover:scale-105 group">
+                            <span>استكشف المقتنيات</span>
+                            <i class="fa-solid fa-arrow-left transition-transform group-hover:-translate-x-1"></i>
+                        </a>
+
+                        <button onclick="openModal('video')" class="inline-flex items-center gap-3 px-6 py-4 border border-gold/40 hover:border-gold text-egyptLight rounded-sm transition-all bg-egyptDark/50 backdrop-blur-sm group">
+                            <span class="w-8 h-8 rounded-full border border-gold flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-egyptDark transition-colors">
+                                <i class="fa-solid fa-play text-xs"></i>
+                            </span>
+                            <span class="text-sm font-medium">جولة افتراضية</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Left Side Hero Display Image (Ancient Statue) -->
+                <div class="lg:col-span-5 flex justify-center relative">
+                    <div class="relative w-full max-w-md aspect-[3/4] rounded-2xl overflow-hidden border border-gold/30 shadow-2xl shadow-gold/10 group">
+                        <img src="https://images.unsplash.com/photo-1568322445389-f64ac2515020?auto=format&fit=crop&w=1200&q=80" 
+                             alt="تمثال ملكي فرعوني" 
+                             class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-egyptDark via-transparent to-transparent opacity-85"></div>
+                        <div class="absolute bottom-6 right-6 left-6 text-right">
+                            <span class="text-gold text-xs font-semibold tracking-wider block mb-1">الرمز التاريخي</span>
+                            <h3 class="text-xl font-bold text-white">تماثيل الملوك والأباطرة</h3>
+                            <p class="text-xs text-gray-300 mt-1">منحوتات ملكية تجسد براعة الفن المصري القديم</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+            <span class="text-[10px] tracking-widest text-gold uppercase">استكشف</span>
+            <div class="w-5 h-9 border-2 border-gold/50 rounded-full flex justify-center p-1">
+                <div class="w-1 h-2 bg-gold rounded-full animate-bounce"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collections Section -->
+    <section id="collections" class="py-24 bg-egyptDark relative border-t border-gold/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 border-b border-gold/10 pb-6">
+                <div>
+                    <span class="text-gold text-sm font-semibold tracking-widest block mb-2">معارض الآثار المتميزة</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-egyptLight">روائع الآثار المصرية</h2>
+                </div>
+            </div>
+
+            <!-- Horizontal Collection Cards Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                
+                <!-- Card 1: Tutankhamun -->
+                <div class="bg-egyptCardDark border border-gold/15 rounded-lg overflow-hidden group card-hover-zoom cursor-pointer transition-all duration-300 hover:border-gold/50 hover:shadow-xl hover:shadow-gold/5">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=800&q=80" 
+                             alt="قناع توت عنخ آمون الذهبي" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-egyptCardDark via-transparent to-transparent"></div>
+                    </div>
+                    <div class="p-5 text-right">
+                        <h3 class="text-lg font-bold text-egyptLight group-hover:text-gold transition-colors">قناع توت عنخ آمون</h3>
+                        <p class="text-xs text-gray-400 mt-2 line-clamp-2">القناع الذهبي الشهير للملك الذهبي توت عنخ آمون من الأسرة الـ18.</p>
+                        <div class="mt-4 flex items-center justify-between pt-3 border-t border-white/5">
+                            <span class="text-[11px] text-gold font-medium">القاعة الملكية</span>
+                            <i class="fa-solid fa-chevron-left text-xs text-gold/50 group-hover:text-gold group-hover:-translate-x-1 transition-all"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Royal Sculptures -->
+                <div class="bg-egyptCardDark border border-gold/15 rounded-lg overflow-hidden group card-hover-zoom cursor-pointer transition-all duration-300 hover:border-gold/50 hover:shadow-xl hover:shadow-gold/5">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1568322445389-f64ac2515020?auto=format&fit=crop&w=800&q=80" 
+                             alt="تماثيل فرعونية ملكية" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-egyptCardDark via-transparent to-transparent"></div>
+                    </div>
+                    <div class="p-5 text-right">
+                        <h3 class="text-lg font-bold text-egyptLight group-hover:text-gold transition-colors">التماثيل والنحت</h3>
+                        <p class="text-xs text-gray-400 mt-2 line-clamp-2">منحوتات حجرية وجرانيتية للملوك والملكات بدقة متناهية.</p>
+                        <div class="mt-4 flex items-center justify-between pt-3 border-t border-white/5">
+                            <span class="text-[11px] text-gold font-medium">البهو الرئيسي</span>
+                            <i class="fa-solid fa-chevron-left text-xs text-gold/50 group-hover:text-gold group-hover:-translate-x-1 transition-all"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Hieroglyphs & Inscriptions -->
+                <div class="bg-egyptCardDark border border-gold/15 rounded-lg overflow-hidden group card-hover-zoom cursor-pointer transition-all duration-300 hover:border-gold/50 hover:shadow-xl hover:shadow-gold/5">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80" 
+                             alt="نقوش هيروغليفية على الجدران" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-egyptCardDark via-transparent to-transparent"></div>
+                    </div>
+                    <div class="p-5 text-right">
+                        <h3 class="text-lg font-bold text-egyptLight group-hover:text-gold transition-colors">النقوش والبرديات</h3>
+                        <p class="text-xs text-gray-400 mt-2 line-clamp-2">كتابات هيروغليفية ونقوش جدارية تاريخية مدونة على الأحجار والبردي.</p>
+                        <div class="mt-4 flex items-center justify-between pt-3 border-t border-white/5">
+                            <span class="text-[11px] text-gold font-medium">قاعة البرديات</span>
+                            <i class="fa-solid fa-chevron-left text-xs text-gold/50 group-hover:text-gold group-hover:-translate-x-1 transition-all"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Daily Life Artifacts -->
+                <div class="bg-egyptCardDark border border-gold/15 rounded-lg overflow-hidden group card-hover-zoom cursor-pointer transition-all duration-300 hover:border-gold/50 hover:shadow-xl hover:shadow-gold/5">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=800&q=80" 
+                             alt="أواني ومقتنيات فرعونية قديمة" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-egyptCardDark via-transparent to-transparent"></div>
+                    </div>
+                    <div class="p-5 text-right">
+                        <h3 class="text-lg font-bold text-egyptLight group-hover:text-gold transition-colors">مقتنيات الحياة اليومية</h3>
+                        <p class="text-xs text-gray-400 mt-2 line-clamp-2">أدوات، أوانٍ، وأدوات زينة توثق تفاصيل حياة المصري القديم.</p>
+                        <div class="mt-4 flex items-center justify-between pt-3 border-t border-white/5">
+                            <span class="text-[11px] text-gold font-medium">الطابق العلوي</span>
+                            <i class="fa-solid fa-chevron-left text-xs text-gold/50 group-hover:text-gold group-hover:-translate-x-1 transition-all"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: Jewelry & Ornaments -->
+                <div class="bg-egyptCardDark border border-gold/15 rounded-lg overflow-hidden group card-hover-zoom cursor-pointer transition-all duration-300 hover:border-gold/50 hover:shadow-xl hover:shadow-gold/5">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1568322445389-f64ac2515020?auto=format&fit=crop&w=800&q=80" 
+                             alt="مجوهرات وحلي ذهبية فرعونية" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-egyptCardDark via-transparent to-transparent"></div>
+                    </div>
+                    <div class="p-5 text-right">
+                        <h3 class="text-lg font-bold text-egyptLight group-hover:text-gold transition-colors">الحلي والمجوهرات</h3>
+                        <p class="text-xs text-gray-400 mt-2 line-clamp-2">مجموعات ذهبية فريدة مطعمة بالأحجار الكريمة تعكس الفخامة والأناقة.</p>
+                        <div class="mt-4 flex items-center justify-between pt-3 border-t border-white/5">
+                            <span class="text-[11px] text-gold font-medium">جناح المجوهرات</span>
+                            <i class="fa-solid fa-chevron-left text-xs text-gold/50 group-hover:text-gold group-hover:-translate-x-1 transition-all"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-gradient-to-b from-egyptDark to-[#111114] relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- History Content Column -->
+                <div class="lg:col-span-7 space-y-6 text-right">
+                    <span class="text-gold text-sm font-semibold tracking-wider block">تاريخ وعظمة</span>
+                    <h2 class="text-3xl sm:text-5xl font-bold text-egyptLight">متحف يحفظ تاريخ أمة</h2>
+                    <p class="text-gray-300 leading-relaxed font-light">
+                        يعد المتحف المصري بالقاهرة أقدم متحف أثري في الشرق الأوسط، حيث افتتح عام 1902 ليضم أكبر مجموعة من الآثار المصرية القديمة في العالم.
+                    </p>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        يحتوي المتحف على أكثر من 120 ألف قطعة أثرية فريدة تمتد من عصر ما قبل الأسرات إلى العصرين اليوناني والروماني.
+                    </p>
+                </div>
+
+                <!-- Timeline Column -->
+                <div class="lg:col-span-5 bg-egyptCardDark/80 p-8 rounded-xl border border-gold/20 shadow-2xl backdrop-blur-md">
+                    <h3 class="text-xl font-bold text-gold mb-8 pb-3 border-b border-gold/20 text-right">محطات فريدة</h3>
+                    
+                    <div class="relative border-r-2 border-gold/30 pr-6 space-y-8 text-right">
+                        <div class="relative group">
+                            <div class="absolute -right-[31px] top-1 w-4 h-4 rounded-full bg-egyptDark border-2 border-gold group-hover:bg-gold transition-colors"></div>
+                            <span class="text-2xl font-extrabold text-gold tracking-tight block">1902</span>
+                            <h4 class="text-base font-bold text-egyptLight mt-1">تأسيس المتحف</h4>
+                            <p class="text-xs text-gray-400 mt-1">افتتاح المبنى الحالي بميدان التحرير.</p>
+                        </div>
+
+                        <div class="relative group">
+                            <div class="absolute -right-[31px] top-1 w-4 h-4 rounded-full bg-egyptDark border-2 border-gold group-hover:bg-gold transition-colors"></div>
+                            <span class="text-2xl font-extrabold text-gold tracking-tight block">1922</span>
+                            <h4 class="text-base font-bold text-egyptLight mt-1">اكتشاف مقبرة توت عنخ آمون</h4>
+                            <p class="text-xs text-gray-400 mt-1">نقل الكنوز الذهبية للحدث الأهم عالمياً للمتحف.</p>
+                        </div>
+
+                        <div class="relative group">
+                            <div class="absolute -right-[31px] top-1 w-4 h-4 rounded-full bg-egyptDark border-2 border-gold group-hover:bg-gold transition-colors"></div>
+                            <span class="text-2xl font-extrabold text-gold tracking-tight block">اليوم</span>
+                            <h4 class="text-base font-bold text-egyptLight mt-1">+120,000 قطعة أثرية</h4>
+                            <p class="text-xs text-gray-400 mt-1">وجهة عالمية لعشاق الآثار والحضارة المصرية.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Visitors Info Section -->
+    <section id="visitors" class="py-24 bg-egyptLight text-egyptDark relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-right mb-12">
+                <span class="text-gold-dark text-sm font-bold tracking-widest block mb-2">خطط لزيارتك</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900">معلومات الزيارة</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 text-right">
+                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200 hover:border-gold transition-colors">
+                    <div class="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center text-gold-dark mb-4">
+                        <i class="fa-regular fa-clock text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 text-lg mb-2">ساعات العمل</h3>
+                    <p class="text-sm text-gray-600">يومياً من 9:00 صباحاً حتى 5:00 مساءً</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200 hover:border-gold transition-colors">
+                    <div class="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center text-gold-dark mb-4">
+                        <i class="fa-solid fa-location-dot text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 text-lg mb-2">الموقع</h3>
+                    <p class="text-sm text-gray-600">ميدان التحرير، وسط البلد، القاهرة، مصر</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200 hover:border-gold transition-colors">
+                    <div class="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center text-gold-dark mb-4">
+                        <i class="fa-solid fa-ticket text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 text-lg mb-2">التذاكر</h3>
+                    <p class="text-sm text-gray-600">تخفيضات خاصة للطلاب والمجموعات</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-egyptDark text-gray-400 border-t border-gold/20 py-12 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-right">
+            <p>&copy; 2026 جميع الحقوق محفوظة للمتحف المصري بالقاهرة.</p>
+        </div>
+    </footer>
+
+    <!-- Tickets Modal -->
+    <div id="ticketsModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-egyptCardDark border border-gold/40 rounded-xl w-full max-w-lg p-6 text-right relative shadow-2xl">
+            <button onclick="closeModal('tickets')" class="absolute top-4 left-4 text-gray-400 hover:text-gold text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-2xl font-bold text-gold mb-2">حجز تذاكر الدخول</h3>
+            <p class="text-xs text-gray-300 mb-6">اختر الفئة والتاريخ لحجز تذكرتك للمتحف المصري بالقاهرة.</p>
+
+            <form onsubmit="handleTicketSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 mb-1">نوع التذكرة</label>
+                    <select class="w-full bg-egyptDark border border-gold/30 rounded p-2.5 text-sm text-gray-200 focus:border-gold focus:outline-none">
+                        <option>زائر مصري / عربي (30 ج.م)</option>
+                        <option>طالب مصري / عربي (15 ج.م)</option>
+                        <option>زائر أجنبي (450 ج.م)</option>
+                        <option>طالب أجنبي (225 ج.م)</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full bg-gold hover:bg-gold-light text-egyptDark font-bold py-3 rounded transition-colors text-sm mt-4">
+                    تأكيد الحجز
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="relative w-full max-w-4xl aspect-video bg-black rounded-xl overflow-hidden border border-gold/30 flex items-center justify-center text-center p-6">
+            <button onclick="closeModal('video')" class="absolute top-4 left-4 z-10 text-white bg-black/60 rounded-full w-10 h-10 flex items-center justify-center hover:text-gold">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="space-y-4">
+                <i class="fa-solid fa-vr-cardboard text-5xl text-gold animate-bounce"></i>
+                <h3 class="text-xl font-bold text-white">الجولة الافتراضية للمتحف المصري</h3>
+                <p class="text-sm text-gray-400">جاري تحميل تجربة الجولة ثلاثية الأبعاد بوضوح 360 درجة...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        function openModal(modalType) {
+            if (modalType === 'tickets') {
+                document.getElementById('ticketsModal').classList.remove('hidden');
+            } else if (modalType === 'video') {
+                document.getElementById('videoModal').classList.remove('hidden');
+            }
+        }
+
+        function closeModal(modalType) {
+            if (modalType === 'tickets') {
+                document.getElementById('ticketsModal').classList.add('hidden');
+            } else if (modalType === 'video') {
+                document.getElementById('videoModal').classList.add('hidden');
+            }
+        }
+
+        function handleTicketSubmit(event) {
+            event.preventDefault();
+            alert('تم تأكيد حجزك بنجاح!');
+            closeModal('tickets');
+        }
+    </script>
+</body>
+</html>
